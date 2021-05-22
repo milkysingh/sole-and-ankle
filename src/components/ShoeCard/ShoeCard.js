@@ -35,15 +35,21 @@ const ShoeCard = ({
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
+          {variant!=='default'&&(<FeatureTag onSale={salePrice}>
+           {variant}
+            </FeatureTag>)}
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price onSale={salePrice}>{formatPrice( price)}</Price>
+         
+          
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice&&<SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -53,18 +59,43 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  flex:1 1 350px;
+  padding:20px;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+
+
+margin-left: ${36/16}rem;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
+ 
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+width: 100%;
+
+`;
+const FeatureTag = styled.div`
+padding: 7px 9px 9px 10px;
+background-color   :${props=>props.onSale?COLORS.primary: COLORS.secondary} ;
+color: ${COLORS.white};
+font-weight:${WEIGHTS.bold};
+font-size:${14/16}rem;
+text-transform:capitalize;
+height: 32px;
+position: absolute;
+top:12px;
+right:-4px;
+border-radius: 2px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display:flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -72,7 +103,9 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+text-decoration:${props=>props.onSale&&'line-through'}
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};

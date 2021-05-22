@@ -50,7 +50,10 @@ table {
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
   line-height: 1.45;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
